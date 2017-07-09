@@ -3,7 +3,6 @@ import os
 import codecs
 from setuptools import setup, find_packages
 
-
 version = '1.0b20'
 
 
@@ -39,12 +38,19 @@ test_requires = [
     'django-csp',  # always install the latest
 ]
 
+# If available, use pypandoc to convert README.md to reStructuredText
+# for use on PyPi.  (Only necessary for package maintainer.)
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except ImportError:
+    long_description = read('README.md')
 
 setup(
     name='django_csp_nonce',
     version=version,
     description='Nonce support for Content Security Policy in Django.',
-    long_description=read('README.rst'),
+    long_description=long_description,
     keywords="CSP Content Security Policy Nonce Django",
     author='Bennyoak',
     author_email='benny@twosensedesign.com',
